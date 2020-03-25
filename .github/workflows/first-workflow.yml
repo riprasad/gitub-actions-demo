@@ -5,7 +5,7 @@ name: Java CI with Maven
 on:
   repository_dispatch:
     types: [build]
-##  push:
+#  push:
 #    branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
