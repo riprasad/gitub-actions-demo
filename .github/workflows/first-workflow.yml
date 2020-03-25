@@ -23,3 +23,7 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn clean install
+    - name: Create a Release
+      run: npx semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
