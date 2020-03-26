@@ -7,6 +7,6 @@ plugins:
   - 
     - "@semantic-release/github"
     - assets: 
-        - label: single-module-project.jar
-          path: target/target/single-module-project.jar
+        - label: Binary (zip)
+          path: binary.zip
 repositoryUrl: "https://github.com/riprasad/gitub-actions-demo"
