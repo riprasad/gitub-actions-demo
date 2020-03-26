@@ -4,5 +4,9 @@ branches:
 plugins: 
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/release-notes-generator"
-  - "@semantic-release/github"
+  - 
+    - "@semantic-release/github"
+    - assets: 
+        - label: single-module-project.jar
+          path: target/target/single-module-project.jar
 repositoryUrl: "https://github.com/riprasad/gitub-actions-demo"
