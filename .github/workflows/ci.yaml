@@ -20,7 +20,7 @@ jobs:
           node-version: 12
       - name: Echo versions
         run: |
-          eccho node --version
+          echo node --version
           echo npm --version
           echo npx --version
       - name: Set up JDK 1.8
