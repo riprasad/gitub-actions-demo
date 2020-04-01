@@ -3,8 +3,8 @@ name: Continuous Integration Workflow
 on:
   repository_dispatch:
     types: [release]
-  push:
-    branches: [master]
+  #push:
+  #  branches: [master]
   pull_request:
     branches: [master]
 
