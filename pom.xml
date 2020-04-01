@@ -17,11 +17,11 @@
   </properties>
 
   <distributionManagement>
-    <site>
-      <id>site-server</id>
-      <name>Test Project Site</name>
-      <url>file:///tmp/single-module-site</url>
-    </site>
+    <repository>
+      <id>ossrsh</id>
+      <name>Central Repository OSSRH</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
   </distributionManagement>
 
   <build>
@@ -160,14 +160,38 @@
   </dependencies>
 
   <scm>
-    <connection>scm:git:git@github.com:gabrielf/maven-samples.git</connection>
-    <developerConnection>scm:git:git@github.com:gabrielf/maven-samples.git</developerConnection>
+    <connection>scm:git:git@github.com/riprasad/gitub-actions-demo.git</connection>
+    <developerConnection>scm:git:git@github.com/riprasad/gitub-actions-demo.git</developerConnection>
     <tag>HEAD</tag>
-    <url>http://github.com/gabrielf/maven-samples</url>
+    <url>https://github.com/riprasad/gitub-actions-demo</url>
   </scm>
 
   <prerequisites>
     <maven>3.0.3</maven>
   </prerequisites>
+         
+  <organization>
+		<name>Red Hat</name>
+		<url>https://www.redhat.com</url>
+	</organization>
 
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>https://repository.jboss.org/licenses/apache-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+         
+   <developers>
+		<developer>
+			<name>Rishab Prasad</name>
+			<id>riprasad</id>
+			<email>riprasad@redhat.com</email>
+			<organization>Red Hat</organization>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+    </developers>
 </project>
