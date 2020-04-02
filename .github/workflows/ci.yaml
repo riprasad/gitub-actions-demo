@@ -32,8 +32,8 @@ jobs:
         with:
           java-version: 1.8
           server-id: ossrh
-          server-username: riprasad
-          server-password: Ri$hab01071995
+          server-username: vSp5g3Mn
+          server-password: sFz118sDfqpV5F/6cwLlotPHwmb/DZmIijxZ6+ARQ70M
       - name: Display settings.xml
         run: cat /home/runner/.m2/settings.xml
       - name: Cache Dependencies
@@ -64,8 +64,8 @@ jobs:
         if: github.event_name == 'repository_dispatch'
         run: mvn -B deploy
         env:
-          MAVEN_USERNAME: riprasad
-          MAVEN_PASSWORD: Ri$hab01071995
+          MAVEN_USERNAME: vSp5g3Mn
+          MAVEN_PASSWORD: sFz118sDfqpV5F/6cwLlotPHwmb/DZmIijxZ6+ARQ70M
       - name: Open Issue
         if: failure() && github.event_name == 'pull_request'
         run: |
