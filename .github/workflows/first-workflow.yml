@@ -15,17 +15,14 @@ jobs:
         with:
           java-version: 1.8
           server-id: ossrh
-          server-username: riprasad
-          server-password: Ri$hab01071995
-          profile-id: ossrh 
+          server-username: ${{ secrets.OSSRH_USERNAME }}
+          server-password: ${{ secrets.OSSRH_TOKEN }}
       - name: Display settings.xml
         run: |
           cat /home/runner/.m2/settings.xml
-          echo "MAVEN_USERNAME: ${MAVEN_USERNAME}"
-          echo "MAVEN_PASSWORD: ${MAVEN_PASSWORD}"
       - name: Publish to Apache Maven Central
         run: mvn deploy 
         env:
-          MAVEN_USERNAME: riprasad
-          MAVEN_CENTRAL_TOKEN: Ri$hab01071995
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       
