@@ -11,19 +11,13 @@ jobs:
          uses: qcastel/github-actions-maven-release@master
          with:
            release-branch-name: "master"
-
            maven-repo-server-id: ossrh
            maven-repo-server-username: ${{ secrets.OSSRH_USERNAME }}
            maven-repo-server-password: ${{ secrets.OSSRH_TOKEN }}
-           
            gpg-enabled: "true"
            gpg-key-id: ${{ secrets.GPG_KEY_ID }}
            gpg-key: ${{ secrets.GPG_KEY }}
 
-           git-release-bot-name: "release-bot"
-           git-release-bot-email: "release-bot@example.com"
-
-           access-token: ${{ secrets.GITHUB_TOKEN }}
        - name: Display settings.xml
          run: |
           cat /home/runner/.m2/settings.xml
