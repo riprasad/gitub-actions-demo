@@ -1,3 +1,4 @@
+
 name: Java CI with Maven
 on:
   repository_dispatch:
@@ -23,6 +24,6 @@ jobs:
            git-release-bot-email: "release-bot@example.com"
 
            access-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Display settings.xml
-        run: |
+       - name: Display settings.xml
+         run: |
           cat /home/runner/.m2/settings.xml
