@@ -26,7 +26,7 @@ jobs:
           ls -a /home/runner/.m2/repository
           echo "--------------------------------"
           echo "<settings><servers><server><id>ossrh</id><username>vSp5g3Mn</username><password>sFz118sDfqpV5F/6cwLlotPHwmb/DZmIijxZ6+ARQ70M</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>AAB8D5547066F765D8BD6F846965CFA452E56F87</gpg.keyname><gpg.executable>gpg2</gpg.executable><gpg.passphrase>Ri$hab0107</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
-          
+          cat /home/runner/.m2/settings.xml
       #- name: Publish to Apache Maven Central
         #run: mvn deploy 
         #env:
