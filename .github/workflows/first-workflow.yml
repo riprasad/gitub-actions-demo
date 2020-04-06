@@ -17,11 +17,19 @@ jobs:
           server-id: ossrh
           server-username: ${{ secrets.OSSRH_USERNAME }}
           server-password: ${{ secrets.OSSRH_TOKEN }}
+      - name: Build maven project
+        run: mvn clean install
       - name: Display settings.xml
         run: |
+          pwd
+          ls -a /home/
+          echo "--------------------------------"
+          ls -a /home/runner/.m2
+          echo "--------------------------------"
           cat /home/runner/.m2/settings.xml
-      - name: Publish to Apache Maven Central
-        run: mvn deploy 
+          
+      #- name: Publish to Apache Maven Central
+        #run: mvn deploy 
         #env:
         #  MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         #  MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
