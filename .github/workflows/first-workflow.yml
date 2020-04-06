@@ -17,8 +17,6 @@ jobs:
           #server-id: ossrh
           #server-username: ${{ secrets.OSSRH_USERNAME }}
           #server-password: ${{ secrets.OSSRH_TOKEN }}
-      - name: Build maven project
-        run: mvn clean install
       - name: Display settings.xml
         run: |
           pwd
