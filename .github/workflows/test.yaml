@@ -16,8 +16,8 @@ jobs:
           pwd
           ls -al
           echo "-------------------------------------------------------------------------------------"
-          gpg --import ~/mygpgkey_pub.gpg
-          gpg --allow-secret-key-import --import ~/mygpgkey_sec.gpg
+          gpg --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_pub.gpg
+          gpg --allow-secret-key-import --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
           echo "-------------------------------------------------------------------------------------"
           gpg --list-keys
           echo "-------------------------------------------------------------------------------------"
