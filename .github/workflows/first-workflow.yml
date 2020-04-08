@@ -26,7 +26,7 @@ jobs:
           gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
           echo "----------------------------------------------------------------------------------------"
           echo "----------------------------------------------------------------------------------------"
-          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.passphrase>'${{ secrets.GPG_PASSPHRASE }}'</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
+          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.passphrase>${{ secrets.GPG_PASSPHRASE }}</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
       - name: Build Maven Project
         run: mvn clean install
