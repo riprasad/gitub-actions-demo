@@ -21,6 +21,7 @@ jobs:
         #run: gpg --import ${{ secrets.KEY }}
       - name: Display settings.xml
         run: |
+          yum install gnupg2
           export GPG_TTY=$(tty)
           gpg --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_pub.gpg
           gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
