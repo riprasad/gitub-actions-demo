@@ -27,12 +27,12 @@ jobs:
           gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
           echo "----------------------------------------------------------------------------------------"
           echo "----------------------------------------------------------------------------------------"
-          echo "<settings xmlns=\"http://maven.apache.org/settings/1.0.0\"><servers><server><id>ossrh</id><username>riprasad</username><password>Ri$hab01071995</password></server></servers><profiles><profile><id>ossrh</id><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase><gpg.keyname>AAB8D5547066F765D8BD6F846965CFA452E56F87</gpg.keyname><gpg.passphraseServerId>${gpg.keyname}</gpg.passphraseServerId><gpg.defaultKeyring>false</gpg.defaultKeyring></properties></profile></profiles><activeProfiles><activeProfile>ossrh</activeProfile></activeProfiles></settings>" > /home/runner/.m2/settings.xml
+          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
-      - name: Build Maven Project
-        run: mvn clean install --batch-mode
+      #- name: Build Maven Project
+        #run: mvn clean install --batch-mode
       - name: Publish to Apache Maven Central
-        run: mvn deploy --batch-mode
+        run: mvn deploy --batch-mode --settings /home/runner/.m2/settings.xml
         #env:
           #MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           #MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
