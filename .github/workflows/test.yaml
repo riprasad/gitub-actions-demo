@@ -22,7 +22,7 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.gpg_private_key }}
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-          maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
+          nexus_username: ${{ secrets.OSSRH_USERNAME }}
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
+          #maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           #maven_profiles: gpg
