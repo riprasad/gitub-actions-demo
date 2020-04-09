@@ -21,13 +21,13 @@ jobs:
         #run: gpg --import ${{ secrets.KEY }}
       - name: Display settings.xml
         run: |
-          sudo apt install gnupg2
-          export GPG_TTY=$(tty)
+          #sudo apt install gnupg2
+          #export GPG_TTY=$(tty)
           gpg --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_pub.gpg
           gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
           echo "----------------------------------------------------------------------------------------"
           echo "----------------------------------------------------------------------------------------"
-          echo "<settings xmlns="http://maven.apache.org/settings/1.0.0"><servers><server><id>ossrh</id><username>riprasad</username><password>Ri$hab01071995</password></server></servers><profiles><profile><id>ossrh</id><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase><gpg.keyname>AAB8D5547066F765D8BD6F846965CFA452E56F87</gpg.keyname><gpg.passphraseServerId>${gpg.keyname}</gpg.passphraseServerId><gpg.defaultKeyring>false</gpg.defaultKeyring></properties></profile></profiles><activeProfiles><activeProfile>ossrh</activeProfile></activeProfiles></settings>" > /home/runner/.m2/settings.xml
+          echo "<settings xmlns=\"http://maven.apache.org/settings/1.0.0\"><servers><server><id>ossrh</id><username>riprasad</username><password>Ri$hab01071995</password></server></servers><profiles><profile><id>ossrh</id><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase><gpg.keyname>AAB8D5547066F765D8BD6F846965CFA452E56F87</gpg.keyname><gpg.passphraseServerId>${gpg.keyname}</gpg.passphraseServerId><gpg.defaultKeyring>false</gpg.defaultKeyring></properties></profile></profiles><activeProfiles><activeProfile>ossrh</activeProfile></activeProfiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
       - name: Build Maven Project
         run: mvn clean install --batch-mode
