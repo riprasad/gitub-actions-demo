@@ -66,6 +66,12 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Get Release Version
+        run: echo "${{ github.event.release.tag_name }}"
       - name: Open Issue
         if: failure() && github.event_name == 'pull_request'
         run: |
