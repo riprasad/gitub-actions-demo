@@ -8,7 +8,12 @@ jobs:
     steps:
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: |
+          sudp apt-get install jq
+          echo ::set-env name=VERSION::${GITHUB_REF/refs\/tags\//}
+          echo ${VERSION}
+          echo ::set-env name=VERSION1::${curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest|  jq --raw-output '.tag_name'| cut -c 2-}
+          echo ${VERSION1}
       - name: Check out Git repository
         uses: actions/checkout@v2
 
