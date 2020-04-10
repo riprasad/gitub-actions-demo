@@ -6,6 +6,15 @@ jobs:
   release:
     runs-on: ubuntu-18.04
     steps:
+      - name: Extract tag name
+        id: tag
+        uses: actions/github-script@0.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+      - name: Echo
+        run: echo ${{ steps.tag.outputs.result }}
       - name: Check out Git repository
         uses: actions/checkout@v2
 
@@ -17,12 +26,12 @@ jobs:
         run: |
           echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.gpg_private_key }}
-          gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.OSSRH_USERNAME }}
-          nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      #- name: Release Maven package
+        #uses: samuelmeuli/action-maven-publish@v1
+        #with:
+          #gpg_private_key: ${{ secrets.gpg_private_key }}
+          #gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          #nexus_username: ${{ secrets.OSSRH_USERNAME }}
+          #nexus_password: ${{ secrets.OSSRH_TOKEN }}
           #maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           #maven_profiles: gpg
