@@ -25,6 +25,8 @@ jobs:
         run: |
           echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
+          echo "---------------------------------------------"
+          echo $TAG
       #- name: Release Maven package
         #uses: samuelmeuli/action-maven-publish@v1
         #with:
