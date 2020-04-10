@@ -48,15 +48,15 @@ jobs:
           cat /home/runner/.m2/settings.xml
       - name: Publish to Apache Maven Central
         run: mvn clean install
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: single-module-project
-          path: target/single-module-project.jar
-      - name: Zip Assets
-        if: github.event_name == 'repository_dispatch'
-        run: |
-          zip -r binary.zip ./target/single-module-project.jar
+      #- name: Upload Artifact
+        #uses: actions/upload-artifact@v1
+        #with:
+          #name: single-module-project
+          #path: target/single-module-project.jar
+      #- name: Zip Assets
+        #if: github.event_name == 'repository_dispatch'
+        #run: |
+          #zip -r binary.zip ./target/single-module-project.jar
       - name: Create a Release
         #if: github.event_name == 'pull_request' && github.ref == 'refs/heads/master'
         if: github.event_name == 'repository_dispatch'
