@@ -31,11 +31,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-          server-id: ossrh
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-      - name: Display settings.xml
-        run: cat /home/runner/.m2/settings.xml
       - name: Cache Dependencies
         uses: actions/cache@v1
         with:
@@ -43,7 +38,15 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
-      - name: Build with Maven
+      - name: Import GPG keys and settings.xml
+        run: |
+          gpg --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_pub.gpg
+          gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
+          echo "----------------------------------------------------------------------------------------"
+          echo "----------------------------------------------------------------------------------------"
+          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
+          cat /home/runner/.m2/settings.xml
+      - name: Publish to Apache Maven Central
         run: mvn clean install
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
@@ -60,12 +63,12 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Publish package to maven central
-        if: github.event_name == 'repository_dispatch'
-        run: mvn -B deploy
-        env:
-          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      #- name: Publish package to maven central
+        #if: github.event_name == 'repository_dispatch'
+        #run: mvn -B deploy
+        #env:
+          #MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          #MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
