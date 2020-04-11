@@ -22,7 +22,7 @@ jobs:
       - name: Display settings.xml
         run: |
           #sudo apt install gnupg2
-          #export GPG_TTY=$(tty)
+          ##export GPG_TTY=$(tty)
           gpg --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_pub.gpg
           gpg --batch --import /home/runner/work/gitub-actions-demo/gitub-actions-demo/mygpgkey_sec.gpg
           echo "----------------------------------------------------------------------------------------"
