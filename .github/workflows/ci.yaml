@@ -24,11 +24,6 @@ jobs:
           node-version: 12
       - name: Echo Release- Before
         run: |
-          sudo apt-get install jq
-          echo "::set-env name=TAG_BEFORE::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
-          echo "-----------------------------------------------------------------"
-          echo $TAG_BEFORE
-          echo "-----------------------------------------------------------------"
           echo node --version
           echo npm --version
           echo npx --version
@@ -51,7 +46,7 @@ jobs:
           echo "----------------------------------------------------------------------------------------"
           echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
           cat /home/runner/.m2/settings.xml
-      - name: Publish to Apache Maven Central
+      - name: Build Project
         run: mvn clean install
       #- name: Upload Artifact
         #uses: actions/upload-artifact@v1
@@ -68,18 +63,17 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #- name: Publish package to maven central
-        #if: github.event_name == 'repository_dispatch'
-        #run: mvn -B deploy
-        #env:
-          #MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          #MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-      - name: Echo Release - After
-        run: |
-          echo "::set-env name=TAG_AFTER::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
-          echo "-----------------------------------------------------------------"
-          echo $TAG_AFTER
-          echo "-----------------------------------------------------------------"
+      - name: Fetch Latest Release Version
+        run: echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+      - name: Change POM Version
+        run: mvn versions:set -DnewVersion=$TAG
+      - name: Publish package to maven central
+        if: github.event_name == 'repository_dispatch'
+        run: mvn -B deploy
+        env:
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
