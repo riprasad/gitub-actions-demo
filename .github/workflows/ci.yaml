@@ -22,8 +22,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Echo versions
+      - name: Echo Release- Before
         run: |
+          echo "::set-env name=TAG_BEFORE::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+          echo "-----------------------------------------------------------------"
+          echo $TAG_BEFORE
+          echo "-----------------------------------------------------------------"
           echo node --version
           echo npm --version
           echo npx --version
@@ -69,6 +73,12 @@ jobs:
         #env:
           #MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           #MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+      - name: Echo Release - After
+        run: |
+          echo "::set-env name=TAG_AFTER::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+          echo "-----------------------------------------------------------------"
+          echo $TAG_AFTER
+          echo "-----------------------------------------------------------------"
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
