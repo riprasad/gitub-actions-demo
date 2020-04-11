@@ -11,8 +11,11 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
-          sudo apt-get install jq
+          #sudo apt-get install jq
           echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+          echo $TAG
+          echo $TAG
+          echo "-----"
           echo $TAG
       - name: Check out Git repository
         uses: actions/checkout@v2
