@@ -31,5 +31,5 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
       - name: Echo Release version
         run: |
-          echo ${ github.event.release.tag_name }}
+          echo ${{ github.event.release.tag_name }}
       
