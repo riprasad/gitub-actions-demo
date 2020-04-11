@@ -2,8 +2,8 @@ name: Java CI with Maven
 on: 
   release:
     types: [published, unpublished, created, edited, deleted, prereleased]
-  #repository_dispatch:
-    #types: [test]
+  repository_dispatch:
+    types: [test]
 jobs:
   release:
     runs-on: ubuntu-18.04
@@ -17,9 +17,9 @@ jobs:
           sudo apt-get install jq
           echo "-----------------------------------------------------------------"
           #TAG=$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest|  jq --raw-output '.tag_name'| cut -c 2-)
-          echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+          echo "::set-env name=TAG_AFTER::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
           echo "-----------------------------------------------------------------"
-          echo $TAG
+          echo $TAG_AFTER
           echo "-----------------------------------------------------------------"
           echo ::set-env name=VERSION::${GITHUB_REF/refs\/tags\//}
           echo "-----------------------------------------------------------------"
