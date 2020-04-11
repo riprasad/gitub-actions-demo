@@ -17,11 +17,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: "4.6.1"
-          release_name: Release 4.6.1
+          tag_name: "4.6.2"
+          release_name: 4.6.2
           body: |
             Changes in this Release
             - First Change
             - Second Change
           draft: false
           prerelease: false
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Echo Release version
+        run: |
+          echo ${ github.event.release.tag_name }}
+      
