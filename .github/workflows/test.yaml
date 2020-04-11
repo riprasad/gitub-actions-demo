@@ -1,7 +1,7 @@
 name: Java CI with Maven
-on:
-  repository_dispatch:
-    types: [test]
+on: release
+  #repository_dispatch:
+    #types: [test]
 jobs:
   release:
     runs-on: ubuntu-18.04
@@ -9,12 +9,20 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
+          echo "-----------------------------------------------------------------"
+          echo "release tag: ${{ github.event.release.tag_name }}"
+          echo "-----------------------------------------------------------------"
           sudo apt-get install jq
+          echo "-----------------------------------------------------------------"
           #TAG=$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest|  jq --raw-output '.tag_name'| cut -c 2-)
           echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
+          echo "-----------------------------------------------------------------"
           echo $TAG
+          echo "-----------------------------------------------------------------"
           echo ::set-env name=VERSION::${GITHUB_REF/refs\/tags\//}
+          echo "-----------------------------------------------------------------"
           echo ${VERSION}
+          echo "-----------------------------------------------------------------"
       - name: Check out Git repository
         uses: actions/checkout@v2
 
