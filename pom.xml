@@ -7,7 +7,7 @@
 	<groupId>com.github.riprasad</groupId>
 	<artifactId>pretty-simple-jar</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>5.0-SNAPSHOT</version>
 	<name>A Single Maven Module</name>
 	<description>Sample single module Maven project with a working, deployable site.</description>
 	<url>http://www.example.com</url>
