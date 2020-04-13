@@ -9,9 +9,8 @@ jobs:
       - name: Import GPG Key
         id: get_versionD
         run: |
-          #echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
           pwd
-          echo ${{ secrets.gpg_private_key }} > privatekey
           echo "----------------------------------------"
           ls -l
+          echo ${{ secrets.gpg_private_key }} | xargs > privatekey
           #gpg --import --batch privatekey
