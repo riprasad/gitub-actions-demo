@@ -39,7 +39,7 @@ jobs:
         run: ls ./target
       - name: Zip Assets
         if: github.event_name == 'repository_dispatch'
-        run: zip -r binary.zip ./target/pretty-simple-jar.jar
+        run: zip -r binary.zip ./target/*.jar
       - name: Github Release
         if: github.event_name == 'repository_dispatch'
         run: npx semantic-release
