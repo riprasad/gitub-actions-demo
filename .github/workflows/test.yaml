@@ -38,5 +38,7 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
-          #maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
+          maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           #maven_profiles: gpg
+      - name: print settings.xml
+        run: cat /home/runner/work/_actions/samuelmeuli/action-maven-publish/v1/settings.xml
