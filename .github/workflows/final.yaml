@@ -57,7 +57,7 @@ jobs:
           maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           maven_profiles: release
       - name: Open Issue
-        if: failure() #&& github.event_name == 'pull_request'
+        if: failure() && github.event_name == 'pull_request'
         run: |
           curl --request POST --url https://api.github.com/repos/${{ github.repository }}/issues \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
