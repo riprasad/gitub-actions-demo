@@ -14,6 +14,7 @@ jobs:
           #sudo apt-get install jq
           echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
           echo $TAG
+          export TAG
           echo $TAG
           echo "-----"
           echo $TAG
@@ -30,12 +31,12 @@ jobs:
           cat /home/runner/.m2/settings.xml
           echo "---------------------------------------------"
           echo $TAG
-      #- name: Release Maven package
-        #uses: samuelmeuli/action-maven-publish@v1
-        #with:
-          #gpg_private_key: ${{ secrets.gpg_private_key }}
-          #gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          #nexus_username: ${{ secrets.OSSRH_USERNAME }}
-          #nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.OSSRH_USERNAME }}
+          nexus_password: ${{ secrets.OSSRH_TOKEN }}
           #maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           #maven_profiles: gpg
