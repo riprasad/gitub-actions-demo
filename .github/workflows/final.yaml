@@ -3,8 +3,8 @@ name: Continuous Integration Workflow
 on:
   repository_dispatch:
     types: [final]
-  push:
-    branches: [master]
+  #push:
+    #branches: [master]
   pull_request:
     branches: [master]
 
@@ -35,6 +35,8 @@ jobs:
       - name: Build Project
         if: github.event_name != 'repository_dispatch'
         run: mvn clean install
+      - name: view assets
+        run: ls ./target
       - name: Zip Assets
         if: github.event_name == 'repository_dispatch'
         run: zip -r binary.zip ./target/pretty-simple-jar.jar
