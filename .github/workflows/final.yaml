@@ -3,8 +3,8 @@ name: Continuous Integration Workflow
 on:
   repository_dispatch:
     types: [final]
-  #push:
-    #branches: [master]
+  push:
+    branches: [master]
   pull_request:
     branches: [master]
 
@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: echo commands
+        #if: github.event_name == 'repository_dispatch'
         run: eccho abc
       - name: Checkout 
         uses: actions/checkout@v2
@@ -56,7 +57,7 @@ jobs:
           maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           maven_profiles: release
       - name: Open Issue
-        if: failure() && github.event_name == 'pull_request'
+        if: failure() #&& github.event_name == 'pull_request'
         run: |
           curl --request POST --url https://api.github.com/repos/${{ github.repository }}/issues \
           --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
