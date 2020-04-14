@@ -53,9 +53,8 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
-          #maven_goals_phases: deploy --batch-mode --settings /home/runner/.m2/settings.xml
+          maven_goals_phases: deploy --batch-mode --settings /home/runner/.m2/settings.xml
           maven_profiles: release
-          server_id: ossrh 
       - name: Open Issue
         if: failure() && github.event_name == 'pull_request'
         run: |
