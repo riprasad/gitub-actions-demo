@@ -3,8 +3,8 @@ name: Continuous Integration Workflow
 on:
   repository_dispatch:
     types: [final]
-  push:
-    branches: [master]
+  #push:
+    #branches: [master]
   pull_request:
     branches: [master]
 
@@ -12,6 +12,8 @@ jobs:
   final:
     runs-on: ubuntu-latest
     steps:
+      - name: echo commands
+        run: eccho abc
       - name: Checkout 
         uses: actions/checkout@v2
       - name: Set up Node.js
@@ -52,6 +54,7 @@ jobs:
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
           maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
+          maven_profiles: release
       - name: Open Issue
         if: failure() && github.event_name == 'pull_request'
         run: |
