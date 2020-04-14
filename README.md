@@ -1,4 +1,4 @@
-![Java CI with Maven](https://github.com/riprasad/gitub-actions-demo/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Continuous Integration Workflow](https://github.com/riprasad/gitub-actions-demo/workflows/Continuous%20Integration%20Workflow/badge.svg)
 
 # test
 test
