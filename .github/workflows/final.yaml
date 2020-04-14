@@ -12,9 +12,6 @@ jobs:
   final:
     runs-on: ubuntu-latest
     steps:
-      - name: echo commands
-        #if: github.event_name == 'repository_dispatch'
-        run: eccho abc
       - name: Checkout 
         uses: actions/checkout@v2
       - name: Set up Node.js
