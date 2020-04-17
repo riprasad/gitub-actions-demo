@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.0.0 (17/04/2020)
+Changes in this Release
+- First Change
+- Second Change
+---
+
 ## v6.0.0 (14/04/2020)
 - [**closed**] Automated issue for commit: 777f0f3944d6d9042894a2c0ce516690fc3e4fdd [#8](https://github.com/riprasad/gitub-actions-demo/issues/8)
 
