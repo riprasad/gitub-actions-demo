@@ -22,12 +22,12 @@ jobs:
       - name: Setup settings.xml
         run: |
           echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>ossrh</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.keyname>${{ secrets.GPG_KEY_ID }}</gpg.keyname><gpg.executable>gpg</gpg.executable><gpg.passphrase>passphrase</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
-      - name: Build Project
-        run: mvn clean install
+      #- name: Build Project
+        #run: mvn clean install
       - name: Install Gren
         run: npm install github-release-notes -g
       - name: Release Notes
-        run: gren release --token=f28418fdeed8b99280e9e0108b3f47447fa7c836 --override
+        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
       #- name: Create Release
       #  id: create_release
       #  uses: actions/create-release@latest
