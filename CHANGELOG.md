@@ -1,9 +1,8 @@
 # Changelog
 
-## v7.0.0 (17/04/2020)
-Changes in this Release
-- First Change
-- Second Change
+## 7.0.0 (17/04/2020)
+*No changelog for this release.*
+
 ---
 
 ## v6.0.0 (14/04/2020)
