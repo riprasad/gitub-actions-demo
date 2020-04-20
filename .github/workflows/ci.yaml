@@ -2,18 +2,18 @@ name: Continuous Integration Workflow
 
 on:
   repository_dispatch:
-    types: [release]
+    types: [abc]
   #push:
   #  branches: [master]
-  pull_request:
-    branches: [master]
+  #pull_request:
+  #  branches: [master]
 
 #env:
 #  MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
 #  MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
 
 jobs:
-  build:
+  ci-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 

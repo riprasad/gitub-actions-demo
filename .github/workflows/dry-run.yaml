@@ -5,7 +5,7 @@ on:
     types: [dry-run]
     
 jobs:
-  build:
+  dry-run:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
