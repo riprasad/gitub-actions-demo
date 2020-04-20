@@ -12,7 +12,7 @@ jobs:
         id: get_version
         run: |
           echo "-----------------------------------------------------"
-          echo "v${{ secrets.RELEASE_VERSION" }}
+          echo "v${{ secrets.RELEASE_VERSION }}"
           echo "-----------------------------------------------------"
           echo "::set-env name=TAG::$(curl -s https://api.github.com/repos/riprasad/gitub-actions-demo/releases/latest| jq --raw-output '.tag_name'| cut -c 2-)"
           echo $TAG
