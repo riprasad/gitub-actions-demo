@@ -26,6 +26,7 @@ jobs:
       - name: Set up Gren
         run: npm install github-release-notes -g
       - name: Cache Dependencies
+        if: github.event_name != 'repository_dispatch'
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
@@ -33,21 +34,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
       - name: Build Project
+        if: github.event_name != 'repository_dispatch'
         run: mvn clean install
-      - name: GitHub Release
-        if: github.event_name == 'repository_dispatch'
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ secrets.RELEASE_VERSION }}
-          release_name: v${{ secrets.RELEASE_VERSION }}
-      - name: Update Release Notes
-        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
       - name: Setup settings.xml
         run: |
           echo "<settings><servers><server><id>${{ secrets.OSSRH_ID }}</id><username>${{ secrets.OSSRH_USERNAME }}</username><password>${{ secrets.OSSRH_TOKEN }}</password></server></servers><profiles><profile><id>${{ secrets.OSSRH_ID }}</id><activation><activeByDefault>true</activeByDefault></activation><properties><gpg.executable>gpg</gpg.executable><gpg.passphrase>${{ secrets.GPG_PASSPHRASE}}</gpg.passphrase></properties></profile></profiles></settings>" > /home/runner/.m2/settings.xml
-      - name: Maven Release
+      - name: Publish to Maven Central
         if: github.event_name == 'repository_dispatch'
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -55,7 +47,18 @@ jobs:
           gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
           nexus_username: ${{ secrets.OSSRH_USERNAME }}
           nexus_password: ${{ secrets.OSSRH_TOKEN }}
-          maven_goals_phases: deploy --batch-mode --settings /home/runner/.m2/settings.xml
+          maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml
           maven_profiles: release
+      - name: Create GitHub Release
+        if: github.event_name == 'repository_dispatch'
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ secrets.TAG_NAME }}
+          release_name: ${{ secrets.RELEASE_NAME }}
+      - name: Generate Release Notes
+        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
+      
       
            
