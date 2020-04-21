@@ -63,8 +63,8 @@ jobs:
         with:
           tag_name: TAG-2.1.0
           release_name: RELEASE-2.1.0
-      #- name: Generate Release Notes
-       # run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
+      - name: Generate Release Notes
+        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
       
       
            
