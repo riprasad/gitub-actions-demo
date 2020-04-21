@@ -62,9 +62,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ secrets.VERSION }}
-          release_name: ${{ secrets.VERSION }}
+          release_name: v2.1.0
       - name: Generate Release Notes
-        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --prefix=v
+        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --limit=1
       
       
            
