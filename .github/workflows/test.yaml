@@ -14,9 +14,8 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           metadata-file-path: '.github/project.yml'
-      - name: Get the version
-        id: get_version
+      - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
-          echo "${{steps.metadata.outputs.current-version}"
+          java -version
 
       
