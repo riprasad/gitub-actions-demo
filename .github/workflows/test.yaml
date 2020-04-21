@@ -1,9 +1,10 @@
 name: Java CI with Maven
 on:
   pull_request:
-    types: [closed]
-    paths:
-      - '.github/project.yml'
+    branches: [master]
+    #types: [closed]
+    #paths:
+      #- '.github/project.yml'
 jobs:
   test-job:
     runs-on: ubuntu-18.04
