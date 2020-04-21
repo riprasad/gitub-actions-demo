@@ -64,7 +64,7 @@ jobs:
           tag_name: ${{ secrets.VERSION }}
           release_name: ${{ secrets.VERSION }}
       - name: Generate Release Notes
-        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override --prefix=v
+        run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override --prefix=v --group-by=label
       
       
            
