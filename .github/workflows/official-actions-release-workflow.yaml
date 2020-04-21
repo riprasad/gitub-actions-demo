@@ -56,9 +56,10 @@ jobs:
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          RELEASE_NAME: "v${{ secrets.TAG_NAME }}"
         with:
           tag_name: ${{ secrets.TAG_NAME }}
-          release_name: ${{ secrets.RELEASE_NAME }}
+          release_name: ${RELEASE_NAME}
       - name: Generate Release Notes
         run: gren release --token=${{ secrets.GITHUB_TOKEN }} --override
       
