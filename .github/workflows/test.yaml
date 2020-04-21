@@ -1,7 +1,7 @@
 name: Java CI with Maven
 on: 
   release:
-    types: [published, unpublished, created, edited, deleted, prereleased]
+    types: [published, created]
   repository_dispatch:
     types: [test]
 jobs:
