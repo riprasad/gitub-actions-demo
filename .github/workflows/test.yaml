@@ -34,24 +34,17 @@ jobs:
      #    ls -a
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Cache Dependencies
-        if: github.event_name != 'repository_dispatch'
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
       - name: Build Project
         if: github.event_name == 'repository_dispatch'
         run: mvn clean install 
       - name: Change POM Version
         run: |
-          mvn versions:set -DnewVersion=${VERSION}
+          echo ${VERSION}
+          #mvn versions:set -DnewVersion=${VERSION}
           echo "------------------------------------"
           cat pom.xml
       - name: Create GitHub Release
-        if: github.event_name == 'repository_dispatch'
+        if: github.event_name != 'repository_dispatch'
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
