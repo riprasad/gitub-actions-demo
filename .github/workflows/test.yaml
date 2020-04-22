@@ -28,8 +28,29 @@ jobs:
           ls -a
           git init
           git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
-          ls -a 
-          
+          git pull origin master
+          mvn versions:set -DnewVersion=2.1.0
+          ls -a
+      - name: Cache Dependencies
+        if: github.event_name != 'repository_dispatch'
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Build Project
+        if: github.event_name == 'repository_dispatch'
+        run: mvn clean install 
+      - name: Create GitHub Release
+        if: github.event_name == 'repository_dispatch'
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: 2.1.0
+          release_name: v2.1.0
+                    
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
           echo ${{steps.metadata.outputs.current-version}}
