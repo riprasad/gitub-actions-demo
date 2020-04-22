@@ -5,24 +5,31 @@ on:
     types: [closed]
     paths:
       - '.github/project.yaml'
+  repository_dispatch:
+    types: [test]
 jobs:
   test-job:
     runs-on: ubuntu-18.04
     if: ${{github.event.pull_request.merged == true}}
     steps:
-      #- name: Set up JDK 1.8
-      #  uses: actions/setup-java@v1
-      #  with:
-      #    java-version: 1.8
-      #- uses: actions/checkout@v2
-      #  with:
-      #    token: ${{secrets.GITHUB_TOKEN}}
       - uses: radcortez/project-metadata-action@master
         name: retrieve project metadata
         id: metadata
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           metadata-file-path: '.github/project.yaml'
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Code Checkout
+        run: |
+          pwd
+          ls -a
+          git init
+          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+          ls -a 
+          
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
           echo ${{steps.metadata.outputs.current-version}}
