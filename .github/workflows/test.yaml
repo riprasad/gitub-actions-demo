@@ -51,6 +51,12 @@ jobs:
         with:
           tag_name: 2.1.0       #####################################
           release_name: v2.1.0  #####################################
+      - name: Change to next SNAPSHOT VERSION
+        run: |
+          mvn versions:set -DnewVersion=2.2.0-SNAPSHOT -DgenerateBackupPoms=false -DprocessAllModules=true
+          git add -A
+          git commit -m"Update version to 2.2.0-SNAPSHOT"
+          git push
                     
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
