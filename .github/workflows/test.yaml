@@ -11,7 +11,7 @@ jobs:
   test-job:
     runs-on: ubuntu-18.04
     env:
-      VERSION: 2.1.0 
+      VERSION: "2.1.0" 
     #if: ${{github.event.pull_request.merged == true}}
     steps:
       #- uses: radcortez/project-metadata-action@master
@@ -40,7 +40,9 @@ jobs:
       - name: Change POM Version
         run: |
           echo ${VERSION}
-          #mvn versions:set -DnewVersion=${VERSION}
+          mvn versions:set -DnewVersion=2.1.0 -DgenerateBackupPoms=false -DprocessAllModules=true
+          echo "------------------------------------"
+          ls -a
           echo "------------------------------------"
           cat pom.xml
       - name: Create GitHub Release
