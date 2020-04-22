@@ -24,35 +24,33 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-     #- name: Code Checkout
-     #  run: |
-     #    pwd
-     #    ls -a
-     #    git init
-     #    git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
-     #    git pull origin master
-     #    ls -a
-      - name: Checkout 
-        uses: actions/checkout@v2
-      - name: Build Project
-        if: github.event_name == 'repository_dispatch'
-        run: mvn clean install 
-      - name: Change POM Version
+      - name: Code Checkout
         run: |
-          echo ${abc}
-          mvn versions:set -DnewVersion=2.1.0 -DgenerateBackupPoms=false -DprocessAllModules=true
-          echo "------------------------------------"
+          pwd
           ls -a
-          echo "------------------------------------"
-          git diff pom.xml
+          git init
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+          git fetch
+          git checkout master
+          git branch --set-upstream-to=origin/master
+          git pull
+          ls -a
+          ############################################################################################
+          mvn versions:set -DnewVersion=2.1.0 -DgenerateBackupPoms=false -DprocessAllModules=true
+          git add -A
+          git commit -m"Update version to 2.1.0"
+          git push
+          
       - name: Create GitHub Release
         if: github.event_name == 'repository_dispatch'
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: "${abc}"
-          release_name: v"${abc}"
+          tag_name: 2.1.0###########################################
+          release_name: v2.1.0  #####################################
                     
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
