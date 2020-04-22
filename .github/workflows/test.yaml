@@ -22,7 +22,7 @@ jobs:
         id: metadata
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
-          metadata-file-path: 'project.yaml'
+          metadata-file-path: '.github/project.yaml'
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
           echo ${{steps.metadata.outputs.current-version}}
