@@ -10,7 +10,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-18.04
-    #if: ${{github.event.pull_request.merged == true}}
+    if: ${{github.event.pull_request.merged == true}}
     steps:
       - name: Retrieve Project Metadata
         uses: radcortez/project-metadata-action@master
