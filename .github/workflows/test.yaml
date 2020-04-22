@@ -29,8 +29,13 @@ jobs:
           git init
           git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
           git pull origin master
-          mvn versions:set -DnewVersion=2.1.0
           ls -a
+      
+      - name: Change POM Version
+        run: |
+          mvn versions:set -DnewVersion=2.1.0
+          echo "------------------------------------"
+          cat pom.xml
       - name: Cache Dependencies
         if: github.event_name != 'repository_dispatch'
         uses: actions/cache@v1
