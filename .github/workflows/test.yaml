@@ -22,15 +22,16 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Code Checkout
-        run: |
-          pwd
-          ls -a
-          git init
-          git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
-          git pull origin master
-          ls -a
-      
+     #- name: Code Checkout
+     #  run: |
+     #    pwd
+     #    ls -a
+     #    git init
+     #    git remote add origin "https://$GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY.git"
+     #    git pull origin master
+     #    ls -a
+      - name: Checkout 
+        uses: actions/checkout@v2
       - name: Change POM Version
         run: |
           mvn versions:set -DnewVersion=2.1.0
