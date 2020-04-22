@@ -44,7 +44,7 @@ jobs:
           echo "------------------------------------"
           ls -a
           echo "------------------------------------"
-          cat pom.xml
+          git diff pom.xml
       - name: Create GitHub Release
         if: github.event_name != 'repository_dispatch'
         uses: actions/create-release@latest
