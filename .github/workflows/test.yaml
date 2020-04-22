@@ -10,6 +10,8 @@ on:
 jobs:
   test-job:
     runs-on: ubuntu-18.04
+    env:
+      VERSION: 2.1.0 
     #if: ${{github.event.pull_request.merged == true}}
     steps:
       #- uses: radcortez/project-metadata-action@master
@@ -32,11 +34,6 @@ jobs:
      #    ls -a
       - name: Checkout 
         uses: actions/checkout@v2
-      - name: Change POM Version
-        run: |
-          mvn versions:set -DnewVersion=2.1.0
-          echo "------------------------------------"
-          cat pom.xml
       - name: Cache Dependencies
         if: github.event_name != 'repository_dispatch'
         uses: actions/cache@v1
@@ -48,14 +45,19 @@ jobs:
       - name: Build Project
         if: github.event_name == 'repository_dispatch'
         run: mvn clean install 
+      - name: Change POM Version
+        run: |
+          mvn versions:set -DnewVersion=${VERSION}
+          echo "------------------------------------"
+          cat pom.xml
       - name: Create GitHub Release
         if: github.event_name == 'repository_dispatch'
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: 2.1.0
-          release_name: v2.1.0
+          tag_name: ${VERSION}
+          release_name: v${VERSION}
                     
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
