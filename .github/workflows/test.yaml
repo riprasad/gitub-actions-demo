@@ -11,7 +11,7 @@ jobs:
   test-job:
     runs-on: ubuntu-18.04
     env:
-      VERSION: "2.1.0" 
+      abc: "2.1.0" 
     #if: ${{github.event.pull_request.merged == true}}
     steps:
       #- uses: radcortez/project-metadata-action@master
@@ -39,20 +39,20 @@ jobs:
         run: mvn clean install 
       - name: Change POM Version
         run: |
-          echo ${VERSION}
+          echo ${abc}
           mvn versions:set -DnewVersion=2.1.0 -DgenerateBackupPoms=false -DprocessAllModules=true
           echo "------------------------------------"
           ls -a
           echo "------------------------------------"
           git diff pom.xml
       - name: Create GitHub Release
-        if: github.event_name != 'repository_dispatch'
+        if: github.event_name == 'repository_dispatch'
         uses: actions/create-release@latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${VERSION}
-          release_name: v${VERSION}
+          tag_name: "${abc}"
+          release_name: v"${abc}"
                     
       - name: maven release ${{steps.metadata.outputs.current-version}}
         run: |
