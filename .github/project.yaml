@@ -1,3 +1,4 @@
 name: single-module-project
-release-version: 2.4.0
-snapshot-version: 2.5.0-SNAPSHOT
+release-version: 2.5.0
+snapshot-version: 2.6.0-SNAPSHOT
+
