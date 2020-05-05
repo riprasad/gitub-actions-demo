@@ -1,0 +1,20 @@
+on:
+  push:
+    branches: [master]
+    paths:
+      - '.github/project.yaml'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v1
+        with:
+          git_gpgsign: true
+        env:
+          SIGNING_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
