@@ -1,0 +1,26 @@
+on:
+  push:
+    paths-ignore:
+      - '.github/**'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README*'
+    branches: [master]
+  pull_request:
+    paths-ignore:
+      - '.github/project.yaml'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README*'
+    branches: [master]
+    
+jobs:
+  build-verify:
+    name: Verify Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: test
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: echo "abc"
+      - name: test 2
+        run: echo "def"
