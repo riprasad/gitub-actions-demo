@@ -24,10 +24,10 @@ jobs:
       - name: test
         run: |
            touch responsefile && curl https://api.github.com/repos/apicurio/apicurio-studio/releases/latest > responsefile
-           export ABC=$(cat responsefile | jq '.published_at' | sed 's/"//g')
-           echo "::set-env name=FILENAME::$ABC"
+           PUBLISHED_AT=$(cat responsefile | jq '.published_at' | sed 's/"//g')
+           echo "::set-env name=FILENAME::$PUBLISHED_AT"
            echo "----------------------"
-           echo $ABC
+           echo $PUBLISHED_AT
            echo "----------------------"
       - name: export test
         run: |
