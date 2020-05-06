@@ -24,6 +24,7 @@ jobs:
       - name: test
         run: |
            touch responsefile && curl https://api.github.com/repos/apicurio/apicurio-studio/releases/latest > responsefile
-           export FILENAME=$(cat responsefile | jq '.published_at' | sed 's/"//g')
+           echo "::set-env name=FILENAME::$(cat responsefile | jq '.published_at' | sed 's/"//g')"
+           echo $FILENAME
       - name: export test
         run: echo $FILENAME
