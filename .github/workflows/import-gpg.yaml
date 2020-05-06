@@ -24,17 +24,15 @@ jobs:
       - name: test
         run: |
            touch responsefile && curl https://api.github.com/repos/apicurio/apicurio-studio/releases/latest > responsefile
-           echo "::set-env name=FILENAME::$(cat responsefile | jq '.published_at' | sed 's/"//g')"
+           #echo "::set-env name=FILENAME::$(cat responsefile | jq '.published_at' | sed 's/"//g')"
            export ABC=$(cat responsefile | jq '.published_at' | sed 's/"//g')
-           set DEF=$(cat responsefile | jq '.published_at' | sed 's/"//g')
+           echo "::set-env name=FILENAME::$ABC"
            source ~/.bash_profile
            echo "----------------------"
            echo $FILENAME
            echo $ABC
-           echo $DEF
            echo "----------------------"
       - name: export test
         run: |
           echo $FILENAME
           echo $ABC
-          echo $DEF
