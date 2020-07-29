@@ -1,12 +1,12 @@
 on:
-  push:
+#  push:
     paths-ignore:
       - '.github/**'
       - '.gitignore'
       - 'LICENSE'
       - 'README*'
     branches: [master]
-  pull_request:
+ # pull_request:
     paths-ignore:
       - '.github/project.yaml'
       - '.gitignore'
