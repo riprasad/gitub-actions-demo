@@ -1,14 +1,14 @@
 on:
 #  push:
+#    paths-ignore:
+#      - '.github/**'
+#      - '.gitignore'
+#      - 'LICENSE'
+#      - 'README*'
+#    branches: [master]
+  pull_request:
     paths-ignore:
       - '.github/**'
-      - '.gitignore'
-      - 'LICENSE'
-      - 'README*'
-    branches: [master]
- # pull_request:
-    paths-ignore:
-      - '.github/project.yaml'
       - '.gitignore'
       - 'LICENSE'
       - 'README*'
@@ -23,4 +23,6 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: echo "abc"
       - name: test 2
-        run: echo "def"
+        run: |
+            echo "abc"
+            echo "$github.ref"
