@@ -1,11 +1,11 @@
 name: Release Workflow
 on:
-  pull_request:
+#  pull_request:
     branches: [master]
     types: [closed]
     paths:
       - '.github/project.yaml'
-  repository_dispatch:
+#  repository_dispatch:
     types: [test]
 jobs:
   release:
