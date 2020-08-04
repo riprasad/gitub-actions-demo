@@ -57,15 +57,23 @@ jobs:
           git add -A
           git commit -m"Automated version update: ${{steps.metadata.outputs.release-version}}"
           git push
-      - name: Publish to Maven Central
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.SECRET_KEY_2 }}
-          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          nexus_username: ${{ secrets.OSSRH_USERNAME }}
-          nexus_password: ${{ secrets.OSSRH_TOKEN }}
-          maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml -DskipTests
-          maven_profiles: release   
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }} 
+      - name: Maven Deploy
+        run: mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml || mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml || mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml -DskipTests     
+          
+      #- name: Publish to Maven Central
+      #  uses: samuelmeuli/action-maven-publish@v1
+      #  with:
+      #    gpg_private_key: ${{ secrets.SECRET_KEY_2 }}
+      #    gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
+      #    nexus_username: ${{ secrets.OSSRH_USERNAME }}
+      #    nexus_password: ${{ secrets.OSSRH_TOKEN }}
+      #    maven_goals_phases: clean deploy --batch-mode --settings /home/runner/.m2/settings.xml -DskipTests
+      #    maven_profiles: release   
       - name: Create GitHub Release
         uses: actions/create-release@latest
         env:
