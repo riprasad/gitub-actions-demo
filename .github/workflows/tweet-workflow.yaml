@@ -13,7 +13,7 @@ jobs:
         with:
           java-version: 1.8
       - name: echo java version
-        run: java --version
+        run: java -version
       - uses: ethomson/send-tweet-action@v1
         with:
           status: "Hi, this is a test!"
