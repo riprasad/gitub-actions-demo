@@ -8,6 +8,12 @@ jobs:
   tweet:
     runs-on: ubuntu-latest
     steps:
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: echo java version
+        run: java --version
       - uses: ethomson/send-tweet-action@v1
         with:
           status: "Hi, this is a test!"
