@@ -53,7 +53,7 @@ jobs:
       - name: Update Release Version ${{steps.metadata.outputs.release-version}}
         run: |
           mvn versions:set -DnewVersion=${{steps.metadata.outputs.release-version}} -DgenerateBackupPoms=false -DprocessAllModules=true
-          mvn clean install
+          mvn clean install -DskipTests
           git add -A
           git commit -m"Automated version update: ${{steps.metadata.outputs.release-version}}"
           git push
