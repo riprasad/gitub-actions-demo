@@ -29,14 +29,14 @@ jobs:
           touch latestRelease.json && curl https://api.github.com/repos/apicurio/apicurio-studio/releases/latest > latestRelease.json
           
           echo "********** Copying Latest Release JSON File **********"
-          PUBLISHED_AT=$(cat responsefile | jq '.published_at' | sed 's/"//g')
+          PUBLISHED_AT=$(cat latestRelease.json | jq '.published_at' | sed 's/"//g')
           cp latestRelease.json releases/$PUBLISHED_AT.json
           
           # setting up env variable to use in next step to force commit the file
           echo "::set-env name=FILENAME::$PUBLISHED_AT"
           
           # setting up env variable to use RELEASE_URL in the tweet
-          HTML_URL=$(cat responsefile | jq '.html_url' | sed 's/"//g')
+          HTML_URL=$(cat latestRelease.json | jq '.html_url' | sed 's/"//g')
           echo "::set-env name=RELEASE_URL::$HTML_URL"
           
           echo "------------------------"
@@ -45,7 +45,7 @@ jobs:
           git diff
       - uses: ethomson/send-tweet-action@v1
         with:
-          status: "Apicurio Registry version Beta 2.28 is out!  Check out the release notes here:$RELEASE_URL"
+          status: "Apicurio Registry version Beta 2.28 is out!  Check out the release notes here: ${{ secrets.TWITTER_CONSUMER_API_KEY }}"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
