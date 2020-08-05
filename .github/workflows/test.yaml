@@ -68,7 +68,7 @@ jobs:
           (echo "===== Maven Deploy Attempt: 1 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
           (echo "===== Maven Deploy Attempt: 2 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
           (echo "===== Maven Deploy Attempt: 3 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
-          echo "==== Maven Deploy Step Failed ===="     
+          (echo "==== Maven Deploy Step Failed ====" && exit 1)     
           
       #- name: Publish to Maven Central
       #  uses: samuelmeuli/action-maven-publish@v1
