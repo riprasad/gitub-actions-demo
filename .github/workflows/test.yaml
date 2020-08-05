@@ -1,10 +1,10 @@
 name: Release Workflow
-#on:
-#  pull_request:
-#    branches: [master]
-#    types: [closed]
-#    paths:
-#      - '.github/project.yaml'
+on:
+  pull_request:
+    branches: [master]
+    types: [closed]
+    paths:
+      - '.github/project.yaml'
 #  repository_dispatch:
 #    types: [test]
 jobs:
@@ -63,7 +63,12 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }} 
       - name: Maven Deploy
-        run: mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml || mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml || mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml -DskipTests     
+        run: |
+          # Retry 3 times before the steps actually fails
+          (echo "===== Maven Deploy Attempt: 1 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
+          (echo "===== Maven Deploy Attempt: 2 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
+          (echo "===== Maven Deploy Attempt: 3 ====" && mvn clean deploy --batch-mode --settings /home/runner/.m2/settings.xml) || \
+          echo "==== Maven Deploy Step Failed ===="     
           
       #- name: Publish to Maven Central
       #  uses: samuelmeuli/action-maven-publish@v1
@@ -87,7 +92,7 @@ jobs:
         run: |
           mvn versions:set -DnewVersion=${{steps.metadata.outputs.snapshot-version}} -DgenerateBackupPoms=false -DprocessAllModules=true
           mvn clean install
-          git add -A
+          git add -A #some random comment
           git commit -m"Automated version update: ${{steps.metadata.outputs.snapshot-version}}"
           git push
 
