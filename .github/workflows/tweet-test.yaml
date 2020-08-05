@@ -14,7 +14,7 @@ jobs:
           echo "::set-env name=RELEASE_URL::$HTML_URL"
       - uses: ethomson/send-tweet-action@v1
         with:
-          status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: '${RELEASE_URL}'"
+          status: ${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here:${RELEASE_URL}
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
