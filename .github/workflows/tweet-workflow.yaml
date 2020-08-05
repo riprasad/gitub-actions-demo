@@ -1,13 +1,23 @@
 name: Tweet Workflow
 
 on:
-  repository_dispatch:
-    types: [tweet]
+  pull_request:
+    branches: [master]
+    types: [closed]
+    paths:
+      - '.github/project.yaml'
     
 jobs:
   tweet:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+    if: github.event.pull_request.merged == true
     steps:
+      - name: Retrieve Project Metadata
+        uses: radcortez/project-metadata-action@master
+        id: metadata
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          metadata-file-path: '.github/project.yaml'
       - name: Apicurio Website Code Checkout
         run: |
           mkdir website
@@ -23,10 +33,11 @@ jobs:
       - name: Updating Project Website
         run: |
           cd website
+          git add .
           echo "********** Downloading Latest Release JSON File **********"
           cd _data/studio
           rm latestRelease.json
-          touch latestRelease.json && curl https://api.github.com/repos/apicurio/apicurio-studio/releases/latest > latestRelease.json
+          touch latestRelease.json && curl https://api.github.com/repos/apicurio/apicurio-registry/releases/latest > latestRelease.json
           
           echo "********** Copying Latest Release JSON File **********"
           PUBLISHED_AT=$(cat latestRelease.json | jq '.published_at' | sed 's/"//g')
@@ -40,12 +51,13 @@ jobs:
           echo "::set-env name=RELEASE_URL::$HTML_URL"
           
           echo "------------------------"
+          echo "$FILENAME"
+          echo "$RELEASE_URL"
           git status
           echo "------------------------"
-          git diff
       - uses: ethomson/send-tweet-action@v1
         with:
-          status: "Apicurio Registry version Beta 2.28 is out!  Check out the release notes here: ${{ secrets.TWITTER_CONSUMER_API_KEY }}"
+          status: "Apicurio Registry version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: ${RELEASE_URL}"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
