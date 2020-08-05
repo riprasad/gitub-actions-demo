@@ -6,8 +6,7 @@
 ##   Step 2: update the release-version and snapshot-version                                                                         ## 
 ##   Step 3: create a pull request to master                                                                                         ## 
 ##                                                                                                                                   ## 
-## Note: The release process will get triggered once the pull request is merged with the master branch.                              ##                                                                                                                                   
-####################################################################################################################################### 
+## Note: The release process will get triggered once the pull request is merged with the master branch.                              ##                                                                                                       ####################################################################################################################################### 
 
 name: Apicurio Registry
 release-version: 2.9.0
