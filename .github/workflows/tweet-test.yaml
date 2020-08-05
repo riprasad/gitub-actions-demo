@@ -15,7 +15,7 @@ jobs:
       - name: print env variable
         run: |
           echo "$RELEASE_URL"
-          echo "${{RELEASE_URL}}"
+          #echo "${{RELEASE_URL}}"
           echo "${{ RELEASE_URL }}"
           echo "${{env.RELEASE_URL}}"
       - uses: ethomson/send-tweet-action@v1
