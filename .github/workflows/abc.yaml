@@ -1,0 +1,16 @@
+name: TSome workflow
+
+on:
+  repository_dispatch:
+    types: [some]
+    
+jobs:
+  tweet:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: print env variable
+        run: |
+          HTML_URL=$(curl https://api.github.com/repos/apicurio/apicurio-registry/releases/latest | jq '.html_url' | sed 's/"//g')
+          echo "::set-env name=RELEASE_URL::$HTML_URL"
+          echo "$HTML_URL"
+          echo "$RELEASE_URL"
