@@ -1,0 +1,27 @@
+name: Tweet Workflow
+
+on:
+  repository_dispatch:
+    types: [tweet]
+    
+jobs:
+  tweet:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: print env variable
+        run: |
+          HTML_URL=$(cat latestRelease.json | jq '.html_url' | sed 's/"//g')
+          echo "::set-env name=RELEASE_URL::$HTML_URL"
+      - name: print env variable
+        run: |
+          echo "$RELEASE_URL"
+          echo "${{RELEASE_URL}}"
+          echo "${{ RELEASE_URL }}"
+          echo "${{env.RELEASE_URL}}"
+      - uses: ethomson/send-tweet-action@v1
+        with:
+          status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: '${RELEASE_URL}'"
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
