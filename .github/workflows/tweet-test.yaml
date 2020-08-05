@@ -12,12 +12,6 @@ jobs:
         run: |
           HTML_URL=$(curl https://api.github.com/repos/apicurio/apicurio-registry/releases/latest | jq '.html_url' | sed 's/"//g')
           echo "::set-env name=RELEASE_URL::$HTML_URL"
-      - name: print env variable
-        run: |
-          echo ${RELEASE_URL}
-          #echo "${{RELEASE_URL}}"
-          #echo "${{ RELEASE_URL }}"
-          #echo "${{env.RELEASE_URL}}"
       - uses: ethomson/send-tweet-action@v1
         with:
           status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: '${RELEASE_URL}'"
