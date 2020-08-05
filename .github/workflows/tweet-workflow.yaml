@@ -33,6 +33,7 @@ jobs:
       - name: Updating Project Website
         run: |
           cd website
+          git init
           git add .
           echo "********** Downloading Latest Release JSON File **********"
           cd _data/studio
@@ -53,18 +54,19 @@ jobs:
           echo "------------------------"
           git status
           echo "------------------------"
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: 6.0.0 
+          release_name: 6.0.0
       - uses: ethomson/send-tweet-action@v1
         with:
-          status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: ${{RELEASE_URL}}"
+          status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: ${{ steps.create_release.outputs.html_url }}"
           consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
           consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
           access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-          
-      - name: print env variable
-        run: |
-          echo "$FILENAME"
-          echo "$RELEASE_URL"
-          echo "${{RELEASE_URL}}"
-          echo "${{ RELEASE_URL }}"
-          echo "${{env.RELEASE_URL}}"
+
