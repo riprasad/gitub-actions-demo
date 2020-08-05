@@ -10,6 +10,6 @@
 ####################################################################################################################################### 
 
 name: Apicurio Registry
-release-version: 2.7.0
-snapshot-version: 2.8.0-SNAPSHOT
+release-version: 2.8.0
+snapshot-version: 2.9.0-SNAPSHOT
 
