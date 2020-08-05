@@ -10,11 +10,11 @@ jobs:
     steps:
       - name: print env variable
         run: |
-          HTML_URL=$(cat latestRelease.json | jq '.html_url' | sed 's/"//g')
+          HTML_URL=$(curl https://api.github.com/repos/apicurio/apicurio-registry/releases/latest | jq '.html_url' | sed 's/"//g')
           echo "::set-env name=RELEASE_URL::$HTML_URL"
       - name: print env variable
         run: |
-          echo "${RELEASE_URL}"
+          echo ${RELEASE_URL}
           #echo "${{RELEASE_URL}}"
           #echo "${{ RELEASE_URL }}"
           #echo "${{env.RELEASE_URL}}"
