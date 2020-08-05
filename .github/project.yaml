@@ -1,4 +1,15 @@
-name: Apicurio RegistrY
+#######################################################################################################################################
+## This is a metadata file which provides input for the Release Workflow. Please update the release and the snapshot version wisely. ##
+##                                                                                                                                   ## 
+## How to Trigger a release?                                                                                                         ## 
+##   Step 1: checkout to a new/existing branch                                                                                       ## 
+##   Step 2: update the release-version and snapshot-version                                                                         ## 
+##   Step 3: create a pull request to master                                                                                         ## 
+##                                                                                                                                   ## 
+## Note: The release process will get triggered once the pull request is merged with the master branch.                              ##                                                                                                                                   
+####################################################################################################################################### 
+
+name: Apicurio Registry
 release-version: 2.7.0
 snapshot-version: 2.8.0-SNAPSHOT
 
