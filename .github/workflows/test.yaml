@@ -95,5 +95,11 @@ jobs:
           git add -A #some random comment
           git commit -m"Automated version update: ${{steps.metadata.outputs.snapshot-version}}"
           git push
-
+      - uses: ethomson/send-tweet-action@v1
+        with:
+          status: "${{steps.metadata.outputs.name}} version ${{steps.metadata.outputs.release-version}} is out!  Check out the release notes here: ${{ steps.create_release.outputs.html_url }}"
+          consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
       
