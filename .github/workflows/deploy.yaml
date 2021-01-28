@@ -1,6 +1,10 @@
 name: Maven Deploy Workflow
 on: 
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: 'Version being released'
+        required: false
   
 jobs:
   deploy:
