@@ -18,18 +18,7 @@
 		<tag>HEAD</tag>
 		<url>https://github.com/riprasad/gitub-actions-demo</url>
 	</scm>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-
+	
 	<organization>
 		<name>Red Hat</name>
 		<url>https://www.redhat.com</url>
@@ -128,6 +117,18 @@
 	    </profile>
 		<profile>
 			<id>release</id>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 			<build>
 				<plugins>
 
