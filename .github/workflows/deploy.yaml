@@ -1,10 +1,6 @@
-name: Maven Deploy Workflow
+name: Github Package Deploy Workflow
 on: 
-  workflow_dispatch:
-    inputs:
-      release-version:
-        description: 'Version being released'
-        required: false
+  workflow_dispatch
   
 jobs:
   deploy:
