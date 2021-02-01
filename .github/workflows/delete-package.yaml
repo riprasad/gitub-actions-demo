@@ -1,0 +1,11 @@
+name: Delete Github Package Workflow
+on: workflow_dispatch
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/delete-package-versions@v1
+        with:
+          package-name: 'com.github.riprasad.single-module-project'
+          num-old-versions-to-delete: 3
