@@ -16,7 +16,7 @@ jobs:
       - name: Set up settings.xml
         run: |
           echo "${{ github.repository_owner }}"
-          echo "<settings><servers><server><id>github</id><username>${{ github.repository_owner }}</username><password>${{ secrets.GITHUB_TOKEN }}</password></server></servers></settings>" > $(HOME)/.m2/settings.xml
-          ls -lrt $(HOME)/.m2/settings.xml
+          echo "<settings><servers><server><id>github</id><username>${{ github.repository_owner }}</username><password>${{ secrets.GITHUB_TOKEN }}</password></server></servers></settings>" > ~/.m2/settings.xml
+          ls -lrt ~/.m2/settings.xml
       #- name: Maven Deploy
       #  run: mvn clean deploy -Pgithub --batch-mode --settings /home/runner/.m2/settings.xml
